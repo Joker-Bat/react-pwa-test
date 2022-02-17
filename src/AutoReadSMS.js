@@ -9,8 +9,11 @@ export async function autoReadSMS(cb) {
   async function main() {
     console.log("Called: main");
     if ("OTPCredential" in window) {
+      console.log("Window is present");
       try {
         if (navigator.credentials) {
+          console.log("credentials is present");
+
           try {
             await navigator.credentials
               .get({ abort: signal, otp: { transport: ["sms"] } })
@@ -20,14 +23,14 @@ export async function autoReadSMS(cb) {
                   cb(content.code);
                 }
               })
-              .catch((e) => console.log(e));
+              .catch((e) => console.log("one error", e));
           } catch (err) {
-            console.log("err ", err);
+            console.log("two error ", err);
             return;
           }
         }
       } catch (err) {
-        console.log(err);
+        console.log("three error: ", err);
       }
     }
   }

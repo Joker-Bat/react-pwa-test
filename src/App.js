@@ -9,7 +9,10 @@ function App() {
 
   const handleSetOtp = (code) => {
     setListening(false);
+    console.log("Called Callback function");
     if (code) {
+      console.log("Called Callback function 2", code);
+
       setOtp(code);
     }
   };
