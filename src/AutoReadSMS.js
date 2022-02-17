@@ -1,9 +1,10 @@
-export function autoReadSMS(cb) {
+export async function autoReadSMS(cb) {
   // used AbortController with setTimeout so that WebOTP API (Autoread sms) will get disabled after 1min
   console.log("Called: autoReadSMS");
   const signal = new AbortController();
   setTimeout(() => {
     signal.abort();
+    cb();
   }, 1 * 60 * 1000);
   async function main() {
     console.log("Called: main");

@@ -5,9 +5,18 @@ import { autoReadSMS } from "./AutoReadSMS";
 
 function App() {
   const [otp, setOtp] = useState("");
+  const [listening, setListening] = useState(false);
 
-  const handleGetOtp = () => {
-    autoReadSMS(setOtp);
+  const handleSetOtp = (code) => {
+    setListening(false);
+    if (code) {
+      setOtp(code);
+    }
+  };
+
+  const handleGetOtp = async () => {
+    setListening(true);
+    await autoReadSMS(handleSetOtp);
   };
 
   console.log(otp);
@@ -16,6 +25,7 @@ function App() {
     <div className="App">
       <h1>Received otp</h1>
       <br />
+      {listening && <p>Listening...</p>}
       <h1>{otp}</h1>
 
       <button onClick={handleGetOtp}>Get otp</button>
